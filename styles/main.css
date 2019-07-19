@@ -1,0 +1,237 @@
+/** FONTS **/
+@font-face { font-family: "ProximaNova"; src: url("../fonts/ProximaNova-Regular.otf"); }
+@font-face { font-family: "ProximaNovaLt"; src: url("../fonts/ProximaNova-Light.otf"); }
+@font-face { font-family: "ProximaNovaBd"; src: url("../fonts/ProximaNova-Semibold.otf"); }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: ProximaNova;
+  font-size: 24px;
+  text-align: center;
+  background-color: #131d26;
+  color: #fff;
+
+  /* #6873c2 */
+  /* #c51f5c, #243447, #131d26 */
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-family: ProximaNovaBd;
+  font-size: 2em;
+}
+
+select#difficultySelect {
+  position: fixed;
+  top: 0.5em;
+  left: 0.5em;
+  width: 8em;
+  background-color: #243447;
+}
+
+#timer {
+  position: fixed;
+  top: 0.5em;
+  right: 0.5em;
+  color: #fff;
+  font-family: ProximaNovaBd;
+  font-size: 1.5em;
+}
+
+#toaster {
+  transition: max-height 0.5s;
+  cursor: pointer;
+  overflow: hidden;
+  position: fixed;
+  top: -2px;
+  max-height: 0; 
+  color: #595959;
+  border-radius: 3px;
+}
+
+#toasterMessage {
+  margin: 0.5em 1em;
+}
+
+#toaster[data-state='error'] {
+  border: solid 1px #ef8166;
+  background-color: #fce6e1;
+}
+
+#toaster[data-state='success'] {
+  border: solid 1px #6eba83;
+  background-color: #e2f1e6;
+}
+
+#board {
+  width: 600px;
+  height: 600px;
+  margin: 1em 0;
+  background-color: #243447;
+}
+
+.board-row {
+  overflow: hidden;
+}
+
+.cell {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: calc(600px / 9);
+  height: calc(600px / 9);
+  font-family: Arial;
+  font-size: 1.2em;
+  color: #ff5593;
+  border: solid 1px #131d26;
+  border-top: none;
+  border-left: none;
+  box-sizing: border-box;
+}
+
+.cell.constant {
+  color: #fff;
+}
+
+.cell::before {
+  /* transition: opacity 0.2s; */
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0;
+}
+
+.cell:hover::before {
+  opacity: 0.1;
+}
+
+.cell[data-has-error='true'] {
+  background-color: #f00;
+  color: #fff;
+}
+
+.cell[active='true']::before,
+.cell:active::before {
+  opacity: 0.3;
+}
+
+.cell[data-row="3"],
+.cell[data-row="6"] {
+  border-bottom-width: 3px;
+}
+
+.cell[data-col="3"],
+.cell[data-col="6"] {
+  border-right-width: 3px;
+}
+
+.cell[data-row='9'] {
+  border-bottom: none;
+}
+
+.cell[data-col='9'] {
+  border-right: none;
+}
+
+.cell-value {
+  pointer-events: none;
+  position: absolute;
+}
+
+.cell-annotations {
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  font-size: 0.5em;
+}
+
+.cell-annotation {
+  visibility: hidden;
+  width: 33%;
+}
+
+#controls {
+  font-family: 'ProximaNovaBd';
+}
+
+button {
+  overflow: hidden;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  width: 8em;
+  height: 2em;
+  line-height: 2em;
+  font-family: 'ProximaNovaBd';
+  font-size: 1em;
+  background-color: #c51f5c;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  box-sizing: border-box;
+}
+
+button.secondary {
+  background-color: #243447;
+}
+
+button::before {
+  transition: opacity 0.2s;
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0;
+}
+
+button:hover::before {
+  opacity: 0.3;
+}
+
+button:active::before {
+  opacity: 0.1;
+}
+
+select {
+  outline: none;
+  cursor: pointer;
+  width: 12em;
+  height: 2em;
+  line-height: 2em;
+  font-family: 'ProximaNovaBd';
+  font-size: 1em;
+  background-color: #47586b;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  box-sizing: border-box;
+}

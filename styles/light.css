@@ -1,0 +1,63 @@
+html[data-style-mode='light'],
+html[data-style-mode='light'] body {
+  background: #fff;
+  color: #595959;
+}
+
+html[data-style-mode='light'] #board {
+  border-color: #999;
+  background-color: #fff;
+}
+
+html[data-style-mode='light'] .cell {
+  color: #ff5593;
+  border-color: #999;
+}
+
+html[data-style-mode='light'] .cell.constant {
+  color: #595959;
+}
+
+html[data-style-mode='light'] .cell::before {
+  background-color: #595959;
+}
+
+html[data-style-mode='light'] .cell[data-has-error='true'] {
+  background-color: #f00;
+  color: #fff;
+}
+
+html[data-style-mode='light'] #pane {
+  background-color: #f2f2f2;
+  border-color: #d7d7d7;
+}
+
+html[data-style-mode='light'] #pane .divider {
+  background-color: #47586b;
+}
+
+html[data-style-mode='light'] button {
+  background-color: #c51f5c;
+  color: #fff;
+}
+
+html[data-style-mode='light'] button.secondary {
+  background-color: transparent;
+  color: #595959;
+}
+
+html[data-style-mode='light'] button::before {
+  background-color: #000;
+}
+
+html[data-style-mode='light'] select {
+  background-color: #fff;
+  color: #595959;
+  border: solid 1px #d7d7d7;
+}
+
+html[data-style-mode='light'] input {
+  background-color: #fff;
+  color: #595959;
+  border: solid 1px #d7d7d7;
+}

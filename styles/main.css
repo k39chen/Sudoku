@@ -4,20 +4,24 @@
 @font-face { font-family: "ProximaNovaBd"; src: url("../fonts/ProximaNova-Semibold.otf"); }
 
 html, body {
+  transition: background-color 0.2s, color 0.2s;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: ProximaNova;
+  font-family: ProximaNova, Arial, sans-serif;
   font-size: 24px;
   text-align: center;
-  background-color: #131d26;
-  color: #fff;
 
-  /* #6873c2 */
-  /* #c51f5c, #243447, #131d26 */
+  --board-width: 400px;
 }
 
 #container {
+  transition: left 0.5s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -30,19 +34,10 @@ h1 {
   font-size: 2em;
 }
 
-select#difficultySelect {
-  position: fixed;
-  top: 0.5em;
-  left: 0.5em;
-  width: 8em;
-  background-color: #243447;
-}
-
 #timer {
   position: fixed;
   top: 0.5em;
   right: 0.5em;
-  color: #fff;
   font-family: ProximaNovaBd;
   font-size: 1.5em;
 }
@@ -73,10 +68,12 @@ select#difficultySelect {
 }
 
 #board {
-  width: 600px;
-  height: 600px;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: var(--board-width);
+  height: var(--board-width);
   margin: 1em 0;
-  background-color: #243447;
+  border-style: solid;
+  border-width: 2px;
 }
 
 .board-row {
@@ -84,6 +81,7 @@ select#difficultySelect {
 }
 
 .cell {
+  transition: color 0.2s, border-color 0.2s;
   cursor: pointer;
   position: relative;
   user-select: none;
@@ -92,22 +90,24 @@ select#difficultySelect {
   justify-content: center;
   align-items: center;
   float: left;
-  width: calc(600px / 9);
-  height: calc(600px / 9);
+  width: calc(var(--board-width) / 9);
+  height: calc(var(--board-width) / 9);
   font-family: Arial;
   font-size: 1.2em;
   color: #ff5593;
-  border: solid 1px #131d26;
+  border-style: solid;
+  border-width: 1px;
   border-top: none;
   border-left: none;
   box-sizing: border-box;
 }
 
 .cell.constant {
-  color: #fff;
+  /* color: #fff; */
 }
 
 .cell::before {
+  transition: background-color 0.2s;
   /* transition: opacity 0.2s; */
   position: absolute;
   display: block;
@@ -175,11 +175,59 @@ select#difficultySelect {
   width: 33%;
 }
 
-#controls {
+#settingsButton {
+  position: fixed;
+  top: 0.5em;
+  left: 0.5em;
+  width: auto;
+}
+
+#pane {
+  transition: left 0.5s, opacity 0.5s, background-color 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: -340px;
+  width: 320px;
+  height: 100%;
+  padding: 1em;
+  opacity: 0;
+  border-right-style: solid;
+  border-right-width: 1px;
+  box-sizing: border-box;
+  box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+#pane[data-state='open'] {
+  left: 0;
+  opacity: 1;
+}
+
+#pane h2 {
+  margin: 1em;
   font-family: 'ProximaNovaBd';
+  font-size: 1.5em;
+}
+
+#pane .divider {
+  width: 100%;
+  height: 1px;
+  margin: 1em 0;
+  background-color: #47586b;
+}
+
+#pane input,
+#pane button,
+#pane select {
+  width: 100%;
+  margin-bottom: 0.5em;
 }
 
 button {
+  transition: color 0.2s;
   overflow: hidden;
   position: relative;
   outline: none;
@@ -197,7 +245,7 @@ button {
 }
 
 button.secondary {
-  background-color: #243447;
+  transition: color 0.2s;
 }
 
 button::before {
@@ -209,7 +257,6 @@ button::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
   opacity: 0;
 }
 
@@ -222,6 +269,7 @@ button:active::before {
 }
 
 select {
+  transition: background-color 0.2s, color 0.2s;
   outline: none;
   cursor: pointer;
   width: 12em;
@@ -229,9 +277,27 @@ select {
   line-height: 2em;
   font-family: 'ProximaNovaBd';
   font-size: 1em;
-  background-color: #47586b;
-  color: #fff;
   border-radius: 3px;
   border: none;
   box-sizing: border-box;
+}
+
+input {
+  transition: background-color 0.2s, color 0.2s;
+  outline: none;
+  width: 12em;
+  height: 2em;
+  padding: 0 0.5em;
+  line-height: 2em;
+  font-family: 'ProximaNovaBd';
+  font-size: 1em;
+  border-radius: 3px;
+  border: none;
+  box-sizing: border-box;
+}
+
+#clipboardInput {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
 }

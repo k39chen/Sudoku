@@ -36,20 +36,30 @@ function Cell(row, col, value) {
 
   this.getElement = () => {
     return this._el;
-  }
+  };
+
+  this.hasValue = () => {
+    return this._value !== '' & this._value !== undefined;
+  };
+
   this.getValue = () => {
     return this._value;
   };
-  this.setValue = (value) => {
-    this._value = this._value === value ? undefined : value;
+
+  this.setValue = (value, force = false) => {
+    this._value = !force && this._value === value ? undefined : value;
     this._el.getElementsByClassName('cell-value')[0].innerHTML = this._value || '';
 
     this._annotations = {};
     this._updateAnnotations();
     this.hideError();
   };
-  this.bulkAnnotate = (values) => {
+  
+  this.bulkAnnotate = (values, force = false) => {
     let value;
+    if (force) {
+      this._annotations = {};
+    }
     for (let i = 0; i < values.length; i++) {
       value = parseInt(values[i], 10);
       if (this._annotations[value]) {
@@ -63,6 +73,15 @@ function Cell(row, col, value) {
     this._updateAnnotations();
     this.hideError();
   };
+
+  this.hasAnnotations = () => {
+    return Object.keys(this._annotations).length > 0;
+  };
+  
+  this.hasAnnotation = (value) => {
+    return this._annotations[value] === true;
+  };
+  
   this.annotate = (value) => {
     if (this._annotations[value]) {
       this._annotations[value] = undefined;
@@ -74,25 +93,47 @@ function Cell(row, col, value) {
     this._updateAnnotations();
     this.hideError();
   };
+
+  this.getAnnotations = () => {
+    const annotations = [];
+    for (let val in this._annotations) {
+      annotations.push(val);
+    }
+    return annotations;
+  };
+  
   this.showError = () => {
     this._el.setAttribute('data-has-error', true);
   };
+  
   this.hideError = () => {
     this._el.removeAttribute('data-has-error');
   };
+  
   this.isConstant = () => {
     return this._isConstant;
   };
+  
   this.isActive = () => {
     return this._isActive;
   };
+  
   this.setActive = () => {
     this._el.setAttribute('active', true);
     this._isActive = true;
   };
+  
   this.setInactive = () => {
     this._el.removeAttribute('active');
     this._isActive = false;
+  };
+
+  this.highlight = () => {
+    this._el.setAttribute('highlighted', true);
+  };
+
+  this.unhighlight = () => {
+    this._el.removeAttribute('highlighted');
   };
 
   this._updateAnnotations = () => {

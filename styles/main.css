@@ -30,7 +30,7 @@ html, body {
 }
 
 h1 {
-  font-family: ProximaNovaBd;
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 2em;
 }
 
@@ -38,7 +38,7 @@ h1 {
   position: fixed;
   top: 0.5em;
   right: 0.5em;
-  font-family: ProximaNovaBd;
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 1.5em;
 }
 
@@ -129,6 +129,11 @@ h1 {
   color: #fff;
 }
 
+.cell[highlighted='true']::before {
+  background-color: #ff5593 !important;
+  opacity: 0.3;
+}
+
 .cell[active='true']::before,
 .cell:active::before {
   opacity: 0.3;
@@ -208,7 +213,7 @@ h1 {
 
 #pane h2 {
   margin: 1em;
-  font-family: 'ProximaNovaBd';
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 1.5em;
 }
 
@@ -235,7 +240,7 @@ button {
   width: 8em;
   height: 2em;
   line-height: 2em;
-  font-family: 'ProximaNovaBd';
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 1em;
   background-color: #c51f5c;
   color: #fff;
@@ -275,7 +280,7 @@ select {
   width: 12em;
   height: 2em;
   line-height: 2em;
-  font-family: 'ProximaNovaBd';
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 1em;
   border-radius: 3px;
   border: none;
@@ -289,7 +294,7 @@ input {
   height: 2em;
   padding: 0 0.5em;
   line-height: 2em;
-  font-family: 'ProximaNovaBd';
+  font-family: 'ProximaNovaBd', Arial;
   font-size: 1em;
   border-radius: 3px;
   border: none;

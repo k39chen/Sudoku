@@ -75,7 +75,7 @@ function Board(game) {
       }
       values.push(rowValues);
     }
-    return values;
+    return JSON.parse(JSON.stringify(values));
   };
 
   this.setState = (state) => {
@@ -95,7 +95,6 @@ function Board(game) {
           cell.bulkAnnotate(cellState, true);
         } else {
           cell.setValue(cellState, true);
-          this.performRollback();
         }
       }
     }
@@ -192,8 +191,10 @@ function Board(game) {
           if (
             row === activeRow ||
             col === activeCol ||
-            rowBlock === activeRowBlock ||
-            colBlock === activeColBlock
+            (
+              rowBlock === activeRowBlock &&
+              colBlock === activeColBlock
+            )
           ) {
             cell.removeAnnotation(activeCellValue);
           }

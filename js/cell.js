@@ -62,7 +62,7 @@ function Cell(row, col, value) {
     }
     for (let i = 0; i < values.length; i++) {
       value = parseInt(values[i], 10);
-      if (this._annotations[value]) {
+      if (this._annotations[value] === true) {
         this._annotations[value] = undefined;
       } else {
         this._annotations[value] = true;
@@ -80,7 +80,11 @@ function Cell(row, col, value) {
   };
 
   this.hasAnnotations = () => {
-    return Object.keys(this._annotations).length > 0;
+    let numAnnotations = 0;
+    for (let value in this._annotations) {
+      if (this._annotations[value] === true) numAnnotations++;
+    }
+    return numAnnotations > 0;
   };
   
   this.hasAnnotation = (value) => {
@@ -88,7 +92,7 @@ function Cell(row, col, value) {
   };
   
   this.annotate = (value) => {
-    if (this._annotations[value]) {
+    if (this._annotations[value] === true) {
       this._annotations[value] = undefined;
     } else {
       this._annotations[value] = true;
@@ -102,7 +106,9 @@ function Cell(row, col, value) {
   this.getAnnotations = () => {
     const annotations = [];
     for (let val in this._annotations) {
-      annotations.push(val);
+      if (this._annotations[val] === true) {
+        annotations.push(val);
+      }
     }
     return annotations;
   };
@@ -149,7 +155,7 @@ function Cell(row, col, value) {
       annotationEl = annotationEls[i];
       annotationValue = parseInt(annotationEl.getAttribute('data-annotation'), 10);
 
-      if (this._annotations[annotationValue]) {
+      if (this._annotations[annotationValue] === true) {
         annotationEl.style.visibility = 'visible';
       } else {
         annotationEl.style.visibility = 'hidden';

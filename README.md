@@ -12,7 +12,7 @@ Controls
 - `Shift+[1-9]` to input annotated number
 - `Cap Locks` to toggle annotation mode
 - `Ctrl+Z` to undo previous input
-- `Ctrl+Shift+Z` to redo input
+- `Ctrl+Y` to redo input
 - `Ctrl+P` toggle pause/resume
 - `Ctrl+V` to validate current solution
 - `Ctrl+R` to reset current solution

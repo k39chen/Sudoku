@@ -74,6 +74,11 @@ function Cell(row, col, value) {
     this.hideError();
   };
 
+  this.removeAnnotation = (value) => {
+    this._annotations[value] = undefined;
+    this._updateAnnotations();
+  };
+
   this.hasAnnotations = () => {
     return Object.keys(this._annotations).length > 0;
   };

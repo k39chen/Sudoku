@@ -9,6 +9,11 @@ var puzzle = []; for (var i=0 ;i<inputEls.length; i++) {
   puzzle.push(val === '' ? '.' : val);
 }
 puzzle = puzzle.join('');
+
+
+.9..5..6.1......8..4...297536..........327..........386548...2..8......3.3..7..9.
+
+window.location.search
 */
 function Game() {
   this._difficulty = 'hard';

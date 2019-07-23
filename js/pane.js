@@ -49,7 +49,7 @@ function Pane(game) {
     }
   });
 
-  document.getElementById('difficultySelect').addEventListener('change', ev => this.changeDifficulty(ev.target.value));
+  document.getElementById('difficultySelect').addEventListener('change', ev => this._game.changeDifficulty.bind(this._game)(ev.target.value));
   document.getElementById('copyScraperButton').addEventListener('click', this.copyScraper.bind(this));
   document.getElementById('exportButton').addEventListener('click', this.export.bind(this));
 

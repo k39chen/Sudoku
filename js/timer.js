@@ -34,12 +34,10 @@ function Timer() {
 
   this.pause = () => {
     this._isPaused = true;
-    console.log('Timer paused');
   };
 
   this.resume = () => {
     this._isPaused = false;
-    console.log('Timer resumed');
   };
 
   this.isPaused = () => {

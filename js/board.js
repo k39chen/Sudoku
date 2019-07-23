@@ -11,7 +11,7 @@ function Board(game) {
   this._stateIndex = 0;
   this._states = [];
 
-  this.init = (puzzle) => {
+  this.init = (puzzle, resetStates = true) => {
     let cell;
     let cellValue;
     let row;
@@ -21,9 +21,11 @@ function Board(game) {
 
     // clear the baord first
     this._el.innerHTML = '';
-    this._states = [];
-    this._stateIndex = 0;
 
+    if (resetStates) {
+      this._states = [];
+      this._stateIndex = 0;
+    }
     // go through each cell of the puzzle and generate
     // the elements accordingly
     for (row = 0; row < this._rows; row++) {
@@ -46,6 +48,9 @@ function Board(game) {
       }
       this._cells[row + 1] = rowCells;
       this._el.appendChild(rowEl);
+    }
+    if (!resetStates) {
+      this.setActiveCell();
     }
   };
 
@@ -90,9 +95,11 @@ function Board(game) {
           cell.bulkAnnotate(cellState, true);
         } else {
           cell.setValue(cellState, true);
+          this.performRollback();
         }
       }
     }
+    this.setActiveCell();
     this.check();
   };
 
@@ -129,10 +136,12 @@ function Board(game) {
         if (cellValue.length > 1) {
           cell.bulkAnnotate(cellValue.split(''));
         } else {
+          cellValue = parseInt(cellValue, 10);
           if (forceAnnotate) {
-            cell.annotate(parseInt(cellValue, 10));
+            cell.annotate(cellValue);
           } else {
-            cell.setValue(parseInt(cellValue, 10));
+            cell.setValue(cellValue);
+            this.performRollback();
           }
         }
       }
@@ -158,20 +167,61 @@ function Board(game) {
     return this._cells[row][col];
   };
 
-  this.getActiveCell = () => {
-    const activeCellParts = this._activeCell.split('_'); 
+  this.performRollback = () => {
+    const activeCellParts = this._activeCell.split('_');
     const activeRow = parseInt(activeCellParts[0], 10);
-    const activeCell = parseInt(activeCellParts[1], 10)
-    return this._cells[activeRow][activeCell];
+    const activeCol = parseInt(activeCellParts[1], 10)
+    const activeRowBlock = Math.floor((activeRow - 1) / 3);
+    const activeColBlock = Math.floor((activeCol - 1) / 3);
+    const activeCell = this.getActiveCell();
+    const activeCellValue = activeCell.getValue();
+    let row;
+    let col;
+    let cell;
+    let rowBlock;
+    let colBlock;
+
+    if (activeCell.hasValue()) {
+      // remove all annotations with this cell's value in the current row and column
+      for (row = 1; row <= this._rows; row++) {
+        for (col = 1; col <= this._cols; col++) {
+          cell = this.getCell(row, col);
+          rowBlock = Math.floor((row - 1) / 3);
+          colBlock = Math.floor((col - 1) / 3);
+          
+          if (
+            row === activeRow ||
+            col === activeCol ||
+            rowBlock === activeRowBlock ||
+            colBlock === activeColBlock
+          ) {
+            cell.removeAnnotation(activeCellValue);
+          }
+        }
+      }
+    }
+  };
+
+  this.getActiveCell = () => {
+    const activeCellParts = this._activeCell.split('_');
+    const activeRow = parseInt(activeCellParts[0], 10);
+    const activeCol = parseInt(activeCellParts[1], 10)
+    return this._cells[activeRow][activeCol];
   };
 
   this.setActiveCell = (activeRow, activeCol) => {
     let row;
     let col;
     let cell;
-    activeRow = Math.min(Math.max(activeRow, 1), 9);
-    activeCol = Math.min(Math.max(activeCol, 1), 9);
 
+    if (!activeRow && !activeCol) {
+      const activeCellParts = this._activeCell.split('_');
+      activeRow = parseInt(activeCellParts[0], 10);
+      activeCol = parseInt(activeCellParts[1], 10)
+    } else {
+      activeRow = Math.min(Math.max(activeRow, 1), 9);
+      activeCol = Math.min(Math.max(activeCol, 1), 9);
+    }
     this._activeCell = [activeRow, activeCol].join('_');
 
     for (row = 1; row <= this._rows; row++) {
@@ -232,34 +282,32 @@ function Board(game) {
       cell.annotate(val);
     } else if (type === '=') {
       cell.setValue(val);
+      this.performRollback();
     }
 
-    this._states = this._states.splice(0, this._stateIndex + 1);
+    if (this._stateIndex !== this._states.length - 1) {
+      this._states = this._states.splice(0, this._stateIndex + 1);
+    }
     this._states.push(this.getState());
     this._stateIndex = this._states.length - 1;
-
-    console.log('do', this._stateIndex, JSON.parse(JSON.stringify(this._states)));
-
     this.check();
   };
 
   this.undo = () => {
-    this._stateIndex = Math.max(this._stateIndex - 1, 0);
-    const state = this._states[this._stateIndex];
-
-    console.log('undo', this._stateIndex, JSON.parse(JSON.stringify(state)));
-    this.setState(state);
-
+    this._stateIndex--;
+    if (this._stateIndex < 0) {
+      this.init(this._game.toMatrix(this._game._puzzle), false);
+    } else {
+      const state = this._states[this._stateIndex];
+      this.setState(state);
+    }
     this.check();
   };
 
   this.redo = () => {
-    this._stateIndex = Math.max(this._stateIndex + 1, this._states.length - 1);
+    this._stateIndex = Math.max(Math.min(this._stateIndex + 1, this._states.length - 1), 0);
     const state = this._states[this._stateIndex];
-
-    console.log('redo', this._stateIndex, JSON.parse(JSON.stringify(this._states)));
     this.setState(state);
-
     this.check();
   };
 
@@ -272,8 +320,6 @@ function Board(game) {
     const activeRow = parseInt(activeCellParts[0], 10);
     const activeCol = parseInt(activeCellParts[1], 10);
     const isCapsLockOn = ev.getModifierState('CapsLock');
-
-    // console.log(ev.keyCode);
 
     switch(ev.keyCode) {
       case 37: // left
@@ -316,13 +362,14 @@ function Board(game) {
           this._game.validate();
         }
         break;
+      case 89: // Y
+        if (ev.ctrlKey) {
+          this.redo();
+        }
+        break;
       case 90: // Z
         if (ev.ctrlKey) {
-          if (ev.shiftKey) {
-            this.redo();
-          } else {
-            this.undo();
-          }
+          this.undo();
         }
         break;
       case 188: // ,

@@ -17,4 +17,5 @@ Controls
 - `Ctrl+V` to validate current solution
 - `Ctrl+R` to reset current solution
 - `Ctrl+[1-9]` to toggle highlight of all instances of the requested number (including annotation)
+- `Ctrl+.` toggle help pane
 - `Ctrl+,` toggle settings pane

@@ -27,12 +27,14 @@ html[data-style-mode='dark'] .cell[data-has-error='true'] {
   color: #fff;
 }
 
-html[data-style-mode='dark'] #pane {
+html[data-style-mode='dark'] #pane,
+html[data-style-mode='dark'] #help {
   background-color: #243447;
   border-color: #131d26;
 }
 
-html[data-style-mode='dark'] #pane .divider {
+html[data-style-mode='dark'] #pane .divider,
+html[data-style-mode='dark'] #help .divider {
   background-color: #47586b;
 }
 

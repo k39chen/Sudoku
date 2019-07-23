@@ -21,11 +21,11 @@ function Game() {
   this._toaster = new Toaster();
   this._board = new Board(this);
   this._pane = new Pane(this);
+  this._help = new Help();
 
   this._puzzle = null;
   this._solution = null;
 
-  this._toggleButtonEl = document.getElementById('toggleButton');
   this._validateButtonEl = document.getElementById('validateButton');
   this._autoAnnotateButtonEl = document.getElementById('autoAnnotateButton');
   this._resetButtonEl = document.getElementById('resetButton');
@@ -144,4 +144,5 @@ function Game() {
   };
 
   document.getElementById('settingsButton').addEventListener('click', () => this._pane.open.bind(this._pane)());
+  document.getElementById('helpButton').addEventListener('click', () => this._help.open.bind(this._help)());
 }

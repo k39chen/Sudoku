@@ -381,6 +381,15 @@ function Board(game) {
           }
         }
         break;
+      case 190: // ,
+        if (ev.ctrlKey) {
+          if (this._game._help.isOpen()) {
+            this._game._help.close();
+          } else {
+            this._game._help.open();
+          }
+        }
+        break;
       case 49: // 1
         if (ev.ctrlKey) {
           this.highlightNumber(1);

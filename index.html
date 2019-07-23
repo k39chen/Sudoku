@@ -22,7 +22,10 @@
       <div id="toasterMessage"></div>
     </div>
 
-    <button id="settingsButton" class="secondary">Settings</button>
+    <div id="controlButtons">
+      <button id="settingsButton" class="secondary">Settings</button>
+      <button id="helpButton" class="secondary">Help</button>
+    </div>
 
     <div id="board"></div>
   </div>
@@ -59,6 +62,29 @@
     <button id="settingsCloseButton" class="secondary">Close</button>
   </div>
 
+  <div id="help">
+    <h2>Help</h2>
+
+    <div class="divider"></div>
+
+    <div class="help-line"><span class="help-label">Arrow Keys</span><span class="help-value">Navigate Board</span></div>
+    <div class="help-line"><span class="help-label">[1-9]</span><span class="help-value">Input Number</span></div>
+    <div class="help-line"><span class="help-label">Shift+[1-9]</span><span class="help-value">Input Annotated Number</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+[1-9]</span><span class="help-value">Highlight Numbers</span></div>
+    <div class="help-line"><span class="help-label">Cap Locks</span><span class="help-value">Toggle annotation mode</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+Z</span><span class="help-value">Undo Action</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+Y</span><span class="help-value">Redo Action</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+P</span><span class="help-value">Pause/Resume</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+V</span><span class="help-value">Validate Progress</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+R</span><span class="help-value">Reset Progress</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+.</span><span class="help-value">Toggle Help</span></div>
+    <div class="help-line"><span class="help-label">Ctrl+,</span><span class="help-value">Toggle Settings</span></div>
+
+    <div class="divider"></div>
+
+    <button id="helpCloseButton" class="secondary">Close</button>
+  </div>
+
   <input id="clipboardInput" type="text" />
 
   <script type="text/javascript" src="js/game.js"></script>
@@ -66,6 +92,7 @@
   <script type="text/javascript" src="js/timer.js"></script>
   <script type="text/javascript" src="js/toaster.js"></script>
   <script type="text/javascript" src="js/pane.js"></script>
+  <script type="text/javascript" src="js/help.js"></script>
   <script type="text/javascript" src="js/cell.js"></script>
   <script type="text/javascript" src="js/board.js"></script>
 

@@ -8,6 +8,7 @@ Personal Sudoku client with annotations, puzzle import/export, auto-annotate, va
 Controls
 ---------
 - `Arrow keys` to navigate
+- `Backspace` to remove number
 - `[1-9]` to input number
 - `Shift+[1-9]` to input annotated number
 - `Cap Locks` to toggle annotation mode

@@ -395,63 +395,171 @@ function Board(game) {
         if (ev.ctrlKey) {
           this.highlightNumber(1);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 1);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 1);
+            } else {
+              this.do('~', 1);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 1);
+            } else {
+              this.do('=', 1);
+            }
+          }
         }
         break;
       case 50: // 2
         if (ev.ctrlKey) {
           this.highlightNumber(2);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 2);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 2);
+            } else {
+              this.do('~', 2);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 2);
+            } else {
+              this.do('=', 2);
+            }
+          }
         }
         break;
       case 51: // 3
         if (ev.ctrlKey) {
           this.highlightNumber(3);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 3);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 3);
+            } else {
+              this.do('~', 3);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 3);
+            } else {
+              this.do('=', 3);
+            }
+          }
         }
         break;
       case 52: // 4
         if (ev.ctrlKey) {
           this.highlightNumber(4);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 4);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 4);
+            } else {
+              this.do('~', 4);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 4);
+            } else {
+              this.do('=', 4);
+            }
+          }
         }
         break;
       case 53: // 5
         if (ev.ctrlKey) {
           this.highlightNumber(5);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 5);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 5);
+            } else {
+              this.do('~', 5);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 5);
+            } else {
+              this.do('=', 5);
+            }
+          }
         }
         break;
       case 54: // 6
         if (ev.ctrlKey) {
           this.highlightNumber(6);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 6);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 6);
+            } else {
+              this.do('~', 6);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 6);
+            } else {
+              this.do('=', 6);
+            }
+          }
         }
         break;
       case 55: // 7
         if (ev.ctrlKey) {
           this.highlightNumber(7);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 7);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 7);
+            } else {
+              this.do('~', 7);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 7);
+            } else {
+              this.do('=', 7);
+            }
+          }
         }
         break;
       case 56: // 8
         if (ev.ctrlKey) {
           this.highlightNumber(8);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 8);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 8);
+            } else {
+              this.do('~', 8);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 8);
+            } else {
+              this.do('=', 8);
+            }
+          }
         }
         break;
       case 57: // 9
         if (ev.ctrlKey) {
           this.highlightNumber(9);
         } else {
-          this.do(isCapsLockOn || (!isCapsLockOn && ev.shiftKey) ? '~' : '=', 9);
+          if (isCapsLockOn) {
+            if (ev.shiftKey) {
+              this.do('=', 9);
+            } else {
+              this.do('~', 9);
+            }
+          } else {
+            if (ev.shiftKey) {
+              this.do('~', 9);
+            } else {
+              this.do('=', 9);
+            }
+          }
         }
         break;
       default:

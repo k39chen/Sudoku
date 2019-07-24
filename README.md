@@ -20,3 +20,7 @@ Controls
 - `Ctrl+[1-9]` to toggle highlight of all instances of the requested number (including annotation)
 - `Ctrl+.` toggle help pane
 - `Ctrl+,` toggle settings pane
+
+License
+-------------
+Copyright (c) 2019 Kevin Chen.

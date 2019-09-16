@@ -28,6 +28,7 @@ function Game() {
 
   this._validateButtonEl = document.getElementById('validateButton');
   this._autoAnnotateButtonEl = document.getElementById('autoAnnotateButton');
+  this._clearAnnotationsButtonEl = document.getElementById('clearAnnotationsButton');
   this._resetButtonEl = document.getElementById('resetButton');
   this._solveButtonEl = document.getElementById('solveButton');
 
@@ -108,9 +109,66 @@ function Game() {
   };
 
   this.autoAnnotate = () => {
-    const boardValues = this._board.getValues();
-    const candidates = sudoku.get_candidates(boardValues);
+    const board = this.toMatrix(this._board.getValues());
+    const candidates = JSON.parse(JSON.stringify(board));
+    let row;
+    let col;
+    let index_x;
+    let index_y;
+    let cellValue;
+    let candidate;
+    let appearsInRow = false;
+    let appearsInCol = false;
+
+    for (row = 0; row < board.length; row++) {
+      for (col = 0; col < board[row].length; col++) {
+        cellValue = board[row][col];
+
+        if (cellValue === '.') {
+          for (candidate = 1; candidate <= 9; candidate++) {
+            // check if this candidate number appears in this row
+            appearsInRow = false;
+            for (index_x = 0; index_x < board[row].length; index_x++) {
+              if (board[row][index_x] === candidate.toString()) {
+                appearsInRow = true;
+                break;
+              }
+            }
+            // check if this candidate number appears in this column
+            appearsInCol = false;
+            for (index_y = 0; index_y < board.length; index_y++) {
+              if (board[index_y][col] === candidate.toString()) {
+                appearsInCol = true;
+                break;
+              }
+            }
+            // see if this candidate appears in this row, column, or block
+            if (!appearsInRow && !appearsInCol) {
+              // add candidate
+              if (!candidates[row]) candidates[row] = [];
+              if (!candidates[row][col] || candidates[row][col] === '.') candidates[row][col] = '';
+              candidates[row][col] += candidate;
+            }
+          }
+        }
+
+      }
+    }
     this._board.setValues(candidates, true);
+  };
+
+  this.clearAnnotations = () => {
+    const board = JSON.parse(JSON.stringify(this.toMatrix(this._board.getValues())));
+    let row;
+    let col;
+    let Cell;
+
+    for (row = 0; row < board.length; row++) {
+      for (col = 0; col < board[row].length; col++) {
+        Cell = this._board.getCell(row + 1, col + 1);
+        Cell.removeAnnotations();
+      }
+    }
   };
 
   this.reset = () => {

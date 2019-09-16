@@ -17,10 +17,10 @@ function Pane(game) {
   };
 
   this.copyScraper = () => {
-    const scraperCode = "var inputEls = document.getElementById('puzzle_grid').getElementsByTagName('input'); var puzzle = []; for (var i=0 ;i<inputEls.length; i++) { var val = inputEls[i].value; puzzle.push(val === '' ? '.' : val) } puzzle = puzzle.join('');";
+    const scraperCode = "var inputEls = document.getElementById('puzzle_grid').getElementsByTagName('input'); var puzzle = []; for (var i=0 ;i<inputEls.length; i++) { var val = inputEls[i].value; puzzle.push(val === '' ? '.' : val) } puzzle = puzzle.join(''); var clipboardInputEl = document.getElementById('clipboardInput'); if (!clipboardInputEl) { clipboardInputEl = document.createElement('input'); clipboardInputEl.setAttribute('type', 'text'); clipboardInputEl.id = 'clipboardInput'; document.documentElement.appendChild(clipboardInputEl); } clipboardInputEl.value = puzzle; clipboardInputEl.select(); document.execCommand('copy'); alert('copied to clipboard' + puzzle)";
     this.copyToClipboard(scraperCode);
     this._game._toaster.open('success', 'Copied scraper code to clipboard. Intended for WebSudoku.com');
-    console.log('Exported game board', scraperCode);
+    console.log('Copied scraper code', scraperCode);
   };
 
   this.export = () => {
@@ -56,6 +56,7 @@ function Pane(game) {
   document.getElementById('togglePauseButton').addEventListener('click', () => this._game.togglePause.bind(this._game)());
   document.getElementById('validateButton').addEventListener('click', () => this._game.validate.bind(this._game)());
   document.getElementById('autoAnnotateButton').addEventListener('click', () => this._game.autoAnnotate.bind(this._game)());
+  document.getElementById('clearAnnotationsButton').addEventListener('click', () => this._game.clearAnnotations.bind(this._game)());
   document.getElementById('resetButton').addEventListener('click', () => this._game.reset.bind(this._game)());
   document.getElementById('solveButton').addEventListener('click', () => this._game.solve.bind(this._game)());
 

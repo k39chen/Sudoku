@@ -2,6 +2,7 @@ function Cell(row, col, value) {
   this._row = row;
   this._col = col;
   this._isConstant = value !== undefined;
+  this._isUserInputted = false;
   this._el = document.createElement('div');
 
   this._value = value;
@@ -46,9 +47,17 @@ function Cell(row, col, value) {
     return this._value;
   };
 
-  this.setValue = (value, force = false) => {
+  this.setValue = (value, force = false, user = false) => {
     this._value = !force && this._value === value ? undefined : value;
     this._el.getElementsByClassName('cell-value')[0].innerHTML = this._value || '';
+
+    if (user === true) {
+      if (value === '') {
+        this._isUserInputted = false;
+      } else {
+        this._isUserInputted = true;
+      }
+    }
 
     this._annotations = {};
     this._updateAnnotations();
@@ -76,6 +85,13 @@ function Cell(row, col, value) {
 
   this.removeAnnotation = (value) => {
     this._annotations[value] = undefined;
+    this._updateAnnotations();
+  };
+
+  this.removeAnnotations = () => {
+    for (let value in this._annotations) {
+      this._annotations[value] = undefined;
+    }
     this._updateAnnotations();
   };
 
@@ -123,6 +139,10 @@ function Cell(row, col, value) {
   
   this.isConstant = () => {
     return this._isConstant;
+  };
+
+  this.isUserInputted = () => {
+    return this._isUserInputted;
   };
   
   this.isActive = () => {

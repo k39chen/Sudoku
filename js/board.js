@@ -131,6 +131,7 @@ function Board(game) {
         cellValue = values[row][col];
 
         if (cell.isConstant()) continue;
+        if (cell.isUserInputted()) continue;
 
         if (cellValue.length > 1) {
           cell.bulkAnnotate(cellValue.split(''));
@@ -282,7 +283,7 @@ function Board(game) {
     if (type === '~') {
       cell.annotate(val);
     } else if (type === '=') {
-      cell.setValue(val);
+      cell.setValue(val, false, true);
       this.performRollback();
     }
 
